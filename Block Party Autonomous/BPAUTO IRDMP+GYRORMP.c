@@ -91,17 +91,17 @@ task main()
 
 while(LSvalNorm(LEGOLS) < 26)
 {
-	motor(leftwheel) = 25; // Go foreward
-	motor(rightwheel)=25;
+	motor(leftwheel) = -25; // Go foreward
+	motor(rightwheel)= -25;
 }
 motor(leftwheel) = 0;
 motor(rightwheel) = 0;
-wait1Msec(2000);//change wait time for compitition
+wait1Msec(1000);//change wait time for compitition
 
  while (heading < 90)
   {
-   motor(leftwheel) = 15;
-   motor(rightwheel) = -15;
+   motor(leftwheel) = 0;
+   motor(rightwheel) = -20;
    wait1Msec(10);
 
     // Read the current rotation speed
@@ -117,11 +117,11 @@ wait1Msec(2000);//change wait time for compitition
 
  motor(leftwheel) = 0;
  motor(rightwheel) = 0;
- wait1Msec(2000); //change value
+ wait1Msec(1000); //change value
 
- motor(leftwheel) = 30;
- motor(rightwheel) = 30;
- wait1Msec(1000); //change to how long it takes to climb ramp
+ motor(leftwheel) = -30;
+ motor(rightwheel) = -30;
+ wait1Msec(1500); //change to how long it takes to climb ramp
 
  motor(leftwheel) = 0;
  motor(rightwheel) = 0;
