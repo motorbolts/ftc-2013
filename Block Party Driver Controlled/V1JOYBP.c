@@ -1,9 +1,9 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C2_1,     shoulder,      tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_2,     elbow,         tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_1,     elbow,         tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_2,     shoulder,      tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C3_1,    dumper,               tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_2,    claw,                 tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_3,    wrist,                tServoStandard)
@@ -98,24 +98,24 @@ task main()
 	}
 	else
 	{
-		motor(rightwheel) = joystick.joy1_y2;
+		motor(rightwheel) = joystick.joy1_y1;
 	}
 
   if(joystick.joy2_y1 < 5 && joystick.joy2_y1 > -5)
-	{
-		motor(shoulder) = 0;
-	}
-	else
-	{
-		motor(shoulder) = joystick.joy2_y1;
-	}
-	if(joystick.joy2_y2 < 5 && joystick.joy2_y2 > -5)
 	{
 		motor(elbow) = 0;
 	}
 	else
 	{
-		motor(elbow) = -joystick.joy2_y2;
+		motor(elbow) = joystick.joy2_y1;
+	}
+	if(joystick.joy2_y2 < 5 && joystick.joy2_y2 > -5)
+	{
+		motor(shoulder) = 0;
+	}
+	else
+	{
+		motor(shoulder) = joystick.joy2_y2;
 	}
 //	if(joy1Btn(1) == 1)
 //	{
