@@ -1,7 +1,7 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     shoulder,      tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     elbow,         tmotorTetrix, openLoop, reversed)
 #pragma config(Servo,  srvo_S1_C3_1,    dumper,               tServoStandard)
@@ -82,40 +82,40 @@ task main()
   while (true)
   {
 	getJoystickSettings(joystick);
-  if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)
+  if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)   // dead zone definition
 	{
 		motor(leftwheel) = 0;
 	}
 	else
 	{
-		motor(leftwheel) = joystick.joy1_y1;
+		motor(leftwheel) = joystick.joy1_y1;  //Left Wheel Drive by Y1 on Joystick 1 (vertical)
 	}
 
 
-	if(joystick.joy1_y2 < 5 && joystick.joy1_y2 > -5)
+	if(joystick.joy1_y2 < 5 && joystick.joy1_y2 > -5)  // dead zone definition
 	{
 		motor(rightwheel) = 0;
 	}
 	else
 	{
-		motor(rightwheel) = joystick.joy1_y2;
+		motor(rightwheel) = joystick.joy1_y2;  //Right Wheel Drive by Y2 on Joystick 1 (vertical)
 	}
 
-  if(joystick.joy2_y1 < 5 && joystick.joy2_y1 > -5)
+  if(joystick.joy2_y1 < 5 && joystick.joy2_y1 > -5)  // dead zone defintion
 	{
 		motor(shoulder) = 0;
 	}
 	else
 	{
-		motor(shoulder) = joystick.joy2_y1;
+		motor(shoulder) = joystick.joy2_y1;  //Shoulder Drive by Y1 on Joystick 2
 	}
-	if(joystick.joy2_y2 < 5 && joystick.joy2_y2 > -5)
+	if(joystick.joy2_y2 < 5 && joystick.joy2_y2 > -5)  // dead zone defintion
 	{
 		motor(elbow) = 0;
 	}
 	else
 	{
-		motor(elbow) = -joystick.joy2_y2;
+		motor(elbow) = joystick.joy2_y2;  // Elbow Drive by Y2 on Joystick 2
 	}
 //	if(joy1Btn(1) == 1)
 //	{
