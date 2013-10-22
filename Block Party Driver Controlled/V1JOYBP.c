@@ -1,9 +1,9 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTServo)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop, reversed)
-#pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     elbow,         tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_2,     shoulder,      tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C2_1,     shoulder,      tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_2,     elbow,         tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_1,     spinner,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_2,     motorI,        tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C4_1,    dump,                 tServoStandard)
@@ -152,11 +152,19 @@ task main()
 	{
 		motor(spinner)=100;
 	}
+	else
+	{
+		motor(spinner)=0;
+	}
+
 	if(joy1Btn(6) == 1)
 	{
 		motor(spinner) = 20;
 	}
-
+	else
+	{
+		motor(spinner)=0;
+	}
 
 		// Insert code to have servos and motors respond to joystick and button values.
 
