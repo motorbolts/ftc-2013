@@ -103,7 +103,36 @@ task main()
 		motor(rightwheel) = joystick.joy1_y2;
 	}
 
-  if(joystick.joy2_y1 < 5 && joystick.joy2_y1 > -5)
+	// Scooch forwards
+		if(joy1Btn(4)==1)
+		{
+			motor[rightwheel]=20;
+			motor[leftwheel]=20;
+			wait1Msec(40);
+		}
+				// Scooch right
+		if(joy1Btn(3)==1)
+		{
+			motor[rightwheel]=0;
+			motor[leftwheel]=20;
+			wait10Msec(4);
+		}
+  // Scooch backwards
+		if(joy1Btn(2)==1)
+		{
+			motor[rightwheel]=-20;
+			motor[leftwheel]=-20;
+			wait1Msec(40);
+		}
+		// Scooch left
+		if(joy1Btn(1)==1)
+		{
+			motor[leftwheel]=0;
+			motor[rightwheel]=20;
+			wait1Msec(40);
+		}
+
+	if(joystick.joy2_y1 < 5 && joystick.joy2_y1 > -5)
 	{
 		motor(elbow) = 0;
 	}

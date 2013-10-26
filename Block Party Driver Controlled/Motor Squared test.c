@@ -2,13 +2,13 @@
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     elbow,         tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_2,     shoulder,      tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_1,     spinner,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_2,      ,             tmotorTetrix, openLoop)
-#pragma config(Servo,  srvo_S1_C4_1,    servo1,               tServoNone)
-#pragma config(Servo,  srvo_S1_C4_2,    servo2,               tServoNone)
-#pragma config(Servo,  srvo_S1_C4_3,    servo3,               tServoNone)
+#pragma config(Motor,  mtr_S1_C2_1,     shoulder,      tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_2,     elbow,         tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_1,     motorI,        tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_2,     spinner,       tmotorTetrix, openLoop)
+#pragma config(Servo,  srvo_S1_C4_1,    dump,                 tServoStandard)
+#pragma config(Servo,  srvo_S1_C4_2,    claw,                 tServoStandard)
+#pragma config(Servo,  srvo_S1_C4_3,    wrist,                tServoStandard)
 #pragma config(Servo,  srvo_S1_C4_4,    servo4,               tServoNone)
 #pragma config(Servo,  srvo_S1_C4_5,    servo5,               tServoNone)
 #pragma config(Servo,  srvo_S1_C4_6,    servo6,               tServoNone)
@@ -39,14 +39,14 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void initializeRobot()
+/* void initializeRobot()
 {
   // Place code here to sinitialize servos to starting positions.
   // Sensors are automatically configured and setup by ROBOTC. They may need a brief time to stabilize.
 
   return;
 }
-
+*/
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -77,19 +77,25 @@ void initializeRobot()
 
 task main()
 {
-  initializeRobot();
+  //initializeRobot();
 
-  waitForStart();   // wait for start of tele-op phase
+  //waitForStart();   // wait for start of tele-op phase
 
   while (true)
   {
-	if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)
+	getJoystickSettings(joystick);
+
+	if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)//deadzone leftwheel
 	{
 		motor(leftwheel) = 0;
 	}
-	else
+	if(joystick.joy1_y1 >= 5) //if joy value is positive move leftwheel forward
 	{
-		motor(leftwheel) = joystick.joy1_y1;
+		motor(leftwheel) = (joystick.joy1_y1* joystick.joy1_y1) / 10000;
+	}
+	if(joystick.joy1_y1 <= -5)//if joy value is negative move wheel backwards
+	{
+		motor(leftwheel) = (joystick.joy1_y1 * joystick.joy1_y1) / -10000;
 	}
 
 
@@ -97,9 +103,13 @@ task main()
 	{
 		motor(rightwheel) = 0;
 	}
-	else
+	if (joystick.joy1_y2 >= 5 )
 	{
-		motor(rightwheel) = joystick.joy1_y1;
+		motor(rightwheel) = (joystick.joy1_y2 * joystick.joy1_y2) / 10000;
+	}
+	if (joystick.joy1_y2 <= -5)
+	{
+		motor(rightwheel) = (joystick.joy1_y2 * joystick.joy1_y2) / -10000;
 	}
 
   if(joystick.joy2_y1 < 5 && joystick.joy2_y1 > -5)
@@ -118,12 +128,54 @@ task main()
 	{
 		motor(shoulder) = joystick.joy2_y2;
 	}
+	if(joy2Btn(3) == 1)
+	{
+		 servo[dump] = 16;
+		 wait1Msec(100);
+	}
 	if(joy2Btn(1) == 1)
 	{
-		motor(spinner) = 100;
+	  servo[dump] = 149;
+	  // dump out
+	  wait1Msec(100);
+	}
+		if(joy2Btn(7) == 1)
+	{
+		 servo[claw] =  0;
+		 //claw closed
+		 wait1Msec(100);
 	}
 
+		if(joy2Btn(8) == 1)
+	{
+		 servo[claw] = 64;
+		 wait1Msec(100);
+	}
+		if(joy2Btn(6) == 1)
+	{
+		servo[wrist] = ServoValue[wrist] - 1;
+	}
+	if(joy2Btn(5) == 1)
+	{
+		servo[wrist] = ServoValue[wrist] + 1;
+	}
+	if(joy1Btn(5) == 1)
+	{
+		motor(spinner)=100;
+	}
+	else
+	{
+		motor(spinner)=0;
+	}
 
+	if(joy1Btn(6) == 1)
+	{
+		motor(spinner) = 20;
+	}
+	else
+	{
+		motor(spinner)=0;
+	}
 
 		// Insert code to have servos and motors respond to joystick and button values.
 
