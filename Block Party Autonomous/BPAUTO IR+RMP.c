@@ -92,7 +92,7 @@ task main()
 
  float rotSpeed = 0; //calibrate gyro
   float heading = 0;
-	float offset = 590;
+	float offset = 514;
   // Calibrate the gyro, make sure you hold the sensor still
   HTGYROstartCal(HTGYRO);
 
@@ -132,19 +132,25 @@ task main()
 
 	while(SensorValue(dumptouch) != 1)
 	{
-		motor(leftwheel) = 25; // Go foreward
-		motor(rightwheel)=25;
+		motor(leftwheel) = -25; // Go backwards
+		motor(rightwheel)= -25;
 	}
+	servo[dump] = 149;
+	  // dump out
+	  wait1Msec(100);
+	servo[dump] = 16;
+	  // dump in
+	  wait1Msec(100);
 
-	motor(leftwheel) = -25;
-	motor(rightwheel) = -25;
-	wait1Msec(1000);
+	motor(leftwheel) = 25;
+	motor(rightwheel) = 25;
+	wait1Msec(2500);
 
 	heading =0;
 
-	while (heading < -90)
+	while (heading < 90)
   {
-   motor(leftwheel) = 0;
+   motor(leftwheel) = 20;
    motor(rightwheel) = -20;
    wait1Msec(10);
 
@@ -159,10 +165,35 @@ task main()
     heading = heading + rotSpeed * 0.01;
   }
 
-	while(LSvalNorm(LEGOLS) < 26)
+	while(SensorValue(walltouch) != 1)
 	{
-		motor(leftwheel) = -25; // Go foreward26)
-		motor(rightwheel)= -25;
+		motor(rightwheel) = 20;
+		motor(leftwheel) = 20;
+	}
+
+  heading =0;
+
+	while (heading < 90)
+  {
+   motor(leftwheel) = 20;
+   motor(rightwheel) = -20;
+   wait1Msec(10);
+
+    // Read the current rotation speed
+    rotSpeed = SensorValue(HTGYRO)- offset;
+
+    // Calculate the new heading by adding the amount of degrees
+    // we've turned in the last 20ms
+    // If our current rate of rotation is 100 degrees/second,
+    // then we will have turned 100 * (20/1000) = 2 degrees since
+    // the last time we measured.
+    heading = heading + rotSpeed * 0.01;
+  }
+
+  while(LSvalNorm(LEGOLS) < 26)
+	{
+		motor(leftwheel) = 25; // Go foreward)
+		motor(rightwheel)= 25;
 	}
 	motor(leftwheel) = 0;
 	motor(rightwheel) = 0;
@@ -170,10 +201,10 @@ task main()
 
 	heading = 0;
 
-	while (heading < 90)
+	while (heading > -90)
   {
-   motor(leftwheel) = 0;
-   motor(rightwheel) = -20;
+   motor(leftwheel) = -20;
+   motor(rightwheel) = -0;
    wait1Msec(10);
 
     // Read the current rotation speed
