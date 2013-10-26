@@ -19,7 +19,7 @@ while(SensorValue(IR) != 5)
 	{
 		motor(leftwheel)=25; // Go foreward
 		motor(rightwheel)=25;
-		count = count + 1;
+
 	}
 
 
