@@ -84,13 +84,17 @@ task main()
   while (true)
   {
 	getJoystickSettings(joystick);
-  if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)
+ if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)//deadzone leftwheel
 	{
 		motor(leftwheel) = 0;
 	}
-	else
+	if(joystick.joy1_y1 >= 5) //if joy value is positive move leftwheel forward
 	{
-		motor(leftwheel) = joystick.joy1_y1;
+		motor(leftwheel) = (joystick.joy1_y1* joystick.joy1_y1) / 100;
+	}
+	if(joystick.joy1_y1 <= -5)//if joy value is negative move wheel backwards
+	{
+		motor(leftwheel) = (joystick.joy1_y1 * joystick.joy1_y1) / -100;
 	}
 
 
@@ -98,9 +102,13 @@ task main()
 	{
 		motor(rightwheel) = 0;
 	}
-	else
+	if (joystick.joy1_y2 >= 5 )
 	{
-		motor(rightwheel) = joystick.joy1_y2;
+		motor(rightwheel) = (joystick.joy1_y2 * joystick.joy1_y2) / 100;
+	}
+	if (joystick.joy1_y2 <= -5)
+	{
+		motor(rightwheel) = (joystick.joy1_y2 * joystick.joy1_y2) / -100;
 	}
 
 	// Scooch forwards
