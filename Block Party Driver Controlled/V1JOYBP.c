@@ -1,11 +1,11 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTServo)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     shoulder,      tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     elbow,         tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_1,     spinner,       tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_2,     motorI,        tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_1,     motorI,        tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_2,     spinner,       tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C4_1,    dump,                 tServoStandard)
 #pragma config(Servo,  srvo_S1_C4_2,    claw,                 tServoStandard)
 #pragma config(Servo,  srvo_S1_C4_3,    wrist,                tServoStandard)
@@ -119,23 +119,25 @@ task main()
 	{
 		motor(shoulder) = joystick.joy2_y2;
 	}
-	if(joy1Btn(8) == 1)
+	if(joy2Btn(3) == 1)
 	{
 		 servo[dump] = 16;
 		 wait1Msec(100);
 	}
-	if(joy1Btn(7) == 1)
+	if(joy2Btn(1) == 1)
 	{
 	  servo[dump] = 149;
+	  // dump out
 	  wait1Msec(100);
 	}
-		if(joy2Btn(8) == 1)
+		if(joy2Btn(7) == 1)
 	{
 		 servo[claw] =  0;
+		 //claw closed
 		 wait1Msec(100);
 	}
 
-		if(joy2Btn(7) == 1)
+		if(joy2Btn(8) == 1)
 	{
 		 servo[claw] = 64;
 		 wait1Msec(100);
