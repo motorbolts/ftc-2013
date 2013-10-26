@@ -90,11 +90,7 @@ task main()
 
  LSsetActive(LEGOLS);//set the Light sensor
 
- float rotSpeed = 0; //calibrate gyro
-  float heading = 0;
-	float offset = 514;
-  // Calibrate the gyro, make sure you hold the sensor still
-  HTGYROstartCal(HTGYRO);
+
 
    while(SensorValue(IR) != 5)
 
@@ -106,10 +102,16 @@ task main()
 
 
 
-	while (heading > -90) //counter clockwise tank turn
+ float rotSpeed = 0;
+  float heading = 0;
+	float offset = 605;
+  // Calibrate the gyro, make sure you hold the sensor still
+  HTGYROstartCal(HTGYRO);
+
+  while (heading > -90)
   {
-   motor(leftwheel) = -20;
-   motor(rightwheel) = 20;
+   motor(leftwheel) = -25;
+   motor(rightwheel) = 25;
    wait1Msec(10);
 
     // Read the current rotation speed
@@ -124,7 +126,6 @@ task main()
   }
 
 
-
 	motor(leftwheel) = 0; // Stop
 	motor(rightwheel) = 0;
 
@@ -135,6 +136,10 @@ task main()
 		motor(leftwheel) = -25; // Go backwards
 		motor(rightwheel)= -25;
 	}
+	motor(leftwheel) = 0;
+	motor(rightwheel)= 0;
+	wait1Msec(1000)
+
 	servo[dump] = 149;
 	  // dump out
 	  wait1Msec(100);

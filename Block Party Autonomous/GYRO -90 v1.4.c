@@ -34,14 +34,14 @@ task main ()
 {
   float rotSpeed = 0;
   float heading = 0;
-	float offset = 595;
+	float offset = 605;
   // Calibrate the gyro, make sure you hold the sensor still
   HTGYROstartCal(HTGYRO);
 
-  while (heading < 90)
+  while (heading > -90)
   {
-   motor(leftwheel) = 25;
-   motor(rightwheel) = -25;
+   motor(leftwheel) = -25;
+   motor(rightwheel) = 25;
    wait1Msec(10);
 
     // Read the current rotation speed
