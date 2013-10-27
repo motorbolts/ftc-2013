@@ -129,27 +129,27 @@ task main()
 	motor(leftwheel) = 0; // Stop
 	motor(rightwheel) = 0;
 
-	wait1Msec(1000);
+	wait1Msec(250);
 
-	while(SensorValue(dumptouch) != 1)
+	while(TSreadState(dumptouch) != 1)
 	{
 		motor(leftwheel) = -25; // Go backwards
 		motor(rightwheel)= -25;
 	}
 	motor(leftwheel) = 0;
 	motor(rightwheel)= 0;
-	wait1Msec(1000)
+	wait1Msec(250);
 
 	servo[dump] = 149;
 	  // dump out
-	  wait1Msec(100);
+	  wait1Msec(500);
 	servo[dump] = 16;
 	  // dump in
 	  wait1Msec(100);
 
 	motor(leftwheel) = 25;
 	motor(rightwheel) = 25;
-	wait1Msec(2500);
+	wait1Msec(500);
 
 	heading =0;
 
@@ -170,7 +170,7 @@ task main()
     heading = heading + rotSpeed * 0.01;
   }
 
-	while(SensorValue(walltouch) != 1)
+	while(TSreadState(walltouch) != 1)
 	{
 		motor(rightwheel) = 20;
 		motor(leftwheel) = 20;
