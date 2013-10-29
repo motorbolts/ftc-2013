@@ -90,7 +90,7 @@ task main()
 
  LSsetActive(LEGOLS);//set the Light sensor
 
-
+ time1[T1] = 0;
 
    while(SensorValue(IR) != 5)
 
@@ -149,11 +149,12 @@ task main()
 
 	motor(leftwheel) = 25;
 	motor(rightwheel) = 25;
-	wait1Msec(500);
+	wait1Msec(250);
 
 	heading =0;
+	rotSpeed = 0;
 
-	while (heading < 90)
+	while (heading < 80)
   {
    motor(leftwheel) = 20;
    motor(rightwheel) = -20;
@@ -177,8 +178,9 @@ task main()
 	}
 
   heading =0;
+	rotSpeed=0;
 
-	while (heading < 90)
+	while (heading < 75)
   {
    motor(leftwheel) = 20;
    motor(rightwheel) = -20;
@@ -195,21 +197,21 @@ task main()
     heading = heading + rotSpeed * 0.01;
   }
 
-  while(LSvalNorm(LEGOLS) < 26)
+  while(LSvalNorm(LEGOLS) < 45)
 	{
 		motor(leftwheel) = 25; // Go foreward)
 		motor(rightwheel)= 25;
 	}
 	motor(leftwheel) = 0;
 	motor(rightwheel) = 0;
-	wait1Msec(1000);//change wait time for compitition
+	wait1Msec(500);//change wait time for compitition
 
 	heading = 0;
-
-	while (heading > -90)
+	rotSpeed=0;
+	while (heading > -105)
   {
-   motor(leftwheel) = -20;
-   motor(rightwheel) = -0;
+   motor(leftwheel) = 0;
+   motor(rightwheel) = 25;
    wait1Msec(10);
 
     // Read the current rotation speed
@@ -227,9 +229,9 @@ task main()
  motor(rightwheel) = 0;
  wait1Msec(1000); //change value
 
- motor(leftwheel) = -30;
- motor(rightwheel) = -30;
- wait1Msec(1500); //change to how long it takes to climb ramp
+ motor(leftwheel) = -50;
+ motor(rightwheel) = -50;
+ wait1Msec(2250); //change to how long it takes to climb ramp
 
  motor(leftwheel) = 0;
  motor(rightwheel) = 0;
