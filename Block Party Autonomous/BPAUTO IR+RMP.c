@@ -78,7 +78,7 @@ void initializeRobot()
 #include "lego-light.h"
 #include "lego-touch.h"
 #include "hitechnic-gyro.h"
-
+int count;
 
 const tMUXSensor dumptouch = msensor_S2_1;
 const tMUXSensor walltouch = msensor_S2_2;
@@ -97,7 +97,7 @@ task main()
 	{
 		motor(leftwheel)= -25; // Go backwards
 		motor(rightwheel)= -25;
-
+		count = count + 1;
 	}
 
 
