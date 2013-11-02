@@ -4,8 +4,8 @@
 #pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     shoulder,      tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     elbow,         tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_1,     motorI,        tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C3_2,     spinner,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_1,     spinner,       tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C3_2,      ,             tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C4_1,    dump,                 tServoStandard)
 #pragma config(Servo,  srvo_S1_C4_2,    claw,                 tServoStandard)
 #pragma config(Servo,  srvo_S1_C4_3,    wrist,                tServoStandard)
@@ -83,7 +83,8 @@ task main()
 
   while (true)
   {
-	getJoystickSettings(joystick);
+
+getJoystickSettings(joystick);
  if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)//deadzone leftwheel
 	{
 		motor(leftwheel) = 0;
@@ -121,8 +122,8 @@ task main()
 				// Scooch right
 		if(joy1Btn(3)==1)
 		{
-			motor[rightwheel]=0;
-			motor[leftwheel]=20;
+			motor[rightwheel]=20;
+			motor[leftwheel]=0;
 			wait10Msec(4);
 		}
   // Scooch backwards
@@ -135,8 +136,8 @@ task main()
 		// Scooch left
 		if(joy1Btn(1)==1)
 		{
-			motor[leftwheel]=0;
-			motor[rightwheel]=20;
+			motor[leftwheel]=20;
+			motor[rightwheel]=0;
 			wait1Msec(40);
 		}
 
@@ -190,6 +191,7 @@ task main()
 	if(joy1Btn(5) == 1)
 	{
 		motor(spinner)=100;
+		wait1Msec(5);
 	}
 	else
 	{
