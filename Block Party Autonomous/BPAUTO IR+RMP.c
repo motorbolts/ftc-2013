@@ -81,8 +81,11 @@ void initializeRobot()
 
 
 const tMUXSensor dumptouch = msensor_S2_1;
-const tMUXSensor walltouch = msensor_S2_2;
+//const tMUXSensor walltouch = msensor_S2_2;
 const tMUXSensor LEGOLS = msensor_S2_3;
+
+int backuptime;
+int backupdump;
 
 task main()
 {
@@ -100,7 +103,7 @@ task main()
 
 	}
 
-
+backuptime = time1[T1];
 
 
  float rotSpeed = 0;
@@ -108,7 +111,7 @@ task main()
 	float offset = 605;
   // Calibrate the gyro, make sure you hold the sensor still
   HTGYROstartCal(HTGYRO);
-	if(time1[T1] < 2500)
+	if(time1[T1] < 1250)
 	{
 		while (heading > -90)
   	{
@@ -154,11 +157,15 @@ else
 
 	wait1Msec(250);
 
+	time1[T2] = 0;
+
 	while(TSreadState(dumptouch) != 1)
 	{
 		motor(leftwheel) = -25; // Go backwards
 		motor(rightwheel)= -25;
 	}
+	 backupdump = time1[T2];
+
 	motor(leftwheel) = 0;
 	motor(rightwheel)= 0;
 	wait1Msec(250);
@@ -172,15 +179,15 @@ else
 
 	motor(leftwheel) = 25;
 	motor(rightwheel) = 25;
-	wait1Msec(250);
+	wait1Msec(backupdump);
 
 	heading =0;
 	rotSpeed = 0;
 
 	while (heading < 80)
   {
-   motor(leftwheel) = 20;
-   motor(rightwheel) = -20;
+   motor(leftwheel) = 0;
+   motor(rightwheel) = -30;
    wait1Msec(10);
 
     // Read the current rotation speed
@@ -194,11 +201,10 @@ else
     heading = heading + rotSpeed * 0.01;
   }
 
-	while(TSreadState(walltouch) != 1)
-	{
-		motor(rightwheel) = 20;
-		motor(leftwheel) = 20;
-	}
+
+		motor(rightwheel) = 25;
+		motor(leftwheel) = 25;
+		wait1Msec(backuptime + 1000);
 
   heading =0;
 	rotSpeed=0;
