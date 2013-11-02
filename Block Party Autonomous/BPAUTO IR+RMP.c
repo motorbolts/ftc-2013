@@ -78,7 +78,7 @@ void initializeRobot()
 #include "lego-light.h"
 #include "lego-touch.h"
 #include "hitechnic-gyro.h"
-int count;
+
 
 const tMUXSensor dumptouch = msensor_S2_1;
 const tMUXSensor walltouch = msensor_S2_2;
@@ -92,13 +92,14 @@ task main()
 
  time1[T1] = 0;
 
-   while(SensorValue(IR) != 5)
+   while(SensorValue(IR) != 5 )
 
 	{
 		motor(leftwheel)= -25; // Go backwards
 		motor(rightwheel)= -25;
-		count = count + 1;
+
 	}
+
 
 
 
@@ -107,12 +108,13 @@ task main()
 	float offset = 605;
   // Calibrate the gyro, make sure you hold the sensor still
   HTGYROstartCal(HTGYRO);
-
-  while (heading > -90)
-  {
-   motor(leftwheel) = -25;
-   motor(rightwheel) = 25;
-   wait1Msec(10);
+	if(time1[T1] < 2500)
+	{
+		while (heading > -90)
+  	{
+   		motor(leftwheel) = -25;
+  	  motor(rightwheel) = 25;
+  	  wait1Msec(10);
 
     // Read the current rotation speed
     rotSpeed = SensorValue(HTGYRO)- offset;
@@ -124,6 +126,27 @@ task main()
     // the last time we measured.
     heading = heading + rotSpeed * 0.01;
   }
+}
+else
+{
+
+		while (heading > -90)
+  	{
+   		motor(leftwheel) = 0;
+  	  motor(rightwheel) = 25;
+  	  wait1Msec(10);
+
+    // Read the current rotation speed
+    rotSpeed = SensorValue(HTGYRO)- offset;
+
+    // Calculate the new heading by adding the amount of degrees
+    // we've turned in the last 20ms
+    // If our current rate of rotation is 100 degrees/second,
+    // then we will have turned 100 * (20/1000) = 2 degrees since
+    // the last time we measured.
+    heading = heading + rotSpeed * 0.01;
+  }
+}
 
 
 	motor(leftwheel) = 0; // Stop
