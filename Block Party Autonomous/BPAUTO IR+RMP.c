@@ -111,9 +111,21 @@ backuptime = time1[T1];
 	float offset = 605;
   // Calibrate the gyro, make sure you hold the sensor still
   HTGYROstartCal(HTGYRO);
-	if(time1[T1] < 1250)
+
+  if(backuptime > 1250 && backuptime < 2500)
 	{
-		while (heading > -90)
+		motor(rightwheel) = 20;
+		motor(leftwheel) = 20;
+		wait1Msec(500);
+	}
+
+  if(backuptime > 2500)
+	{
+		motor(rightwheel) = 20;
+		motor(leftwheel) = 20;
+		wait1Msec(750);
+	}
+while (heading > -90)
   	{
    		motor(leftwheel) = -25;
   	  motor(rightwheel) = 25;
@@ -129,28 +141,6 @@ backuptime = time1[T1];
     // the last time we measured.
     heading = heading + rotSpeed * 0.01;
   }
-}
-else
-{
-
-		while (heading > -90)
-  	{
-   		motor(leftwheel) = 0;
-  	  motor(rightwheel) = 25;
-  	  wait1Msec(10);
-
-    // Read the current rotation speed
-    rotSpeed = SensorValue(HTGYRO)- offset;
-
-    // Calculate the new heading by adding the amount of degrees
-    // we've turned in the last 20ms
-    // If our current rate of rotation is 100 degrees/second,
-    // then we will have turned 100 * (20/1000) = 2 degrees since
-    // the last time we measured.
-    heading = heading + rotSpeed * 0.01;
-  }
-}
-
 
 	motor(leftwheel) = 0; // Stop
 	motor(rightwheel) = 0;
@@ -237,7 +227,7 @@ else
 
 	heading = 0;
 	rotSpeed=0;
-	while (heading > -105)
+	while (heading > -100)
   {
    motor(leftwheel) = 0;
    motor(rightwheel) = 25;
