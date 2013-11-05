@@ -112,7 +112,7 @@ backuptime = time1[T1];
   // Calibrate the gyro, make sure you hold the sensor still
   HTGYROstartCal(HTGYRO);
 
-  if(backuptime > 1250 && backuptime < 2500)
+  if(backuptime > 800 && backuptime < 2500)
 	{
 		motor(rightwheel) = 20;
 		motor(leftwheel) = 20;
@@ -125,7 +125,7 @@ backuptime = time1[T1];
 		motor(leftwheel) = 20;
 		wait1Msec(750);
 	}
-while (heading < 80)
+while (heading < 90)
   	{
    		motor(leftwheel) = 25;
   	  motor(rightwheel) = -25;
@@ -165,16 +165,17 @@ while (heading < 80)
 	  wait1Msec(500);
 	servo[dump] = 16;
 	  // dump in
-	  wait1Msec(100);
+	  wait1Msec(500);
+
 
 
 
 	heading =0;
 	rotSpeed = 0;
 
-	while (heading < -80)
+	while (heading > -75)
   {
-   motor(leftwheel) = 30;
+   motor(leftwheel) = -30;
    motor(rightwheel) = 0;
    wait1Msec(10);
 
@@ -197,7 +198,7 @@ while (heading < 80)
   heading =0;
 	rotSpeed=0;
 
-	while (heading < -75)
+	while (heading > -90)
   {
    motor(leftwheel) = -20;
    motor(rightwheel) = 20;
@@ -225,7 +226,7 @@ while (heading < 80)
 
 	heading = 0;
 	rotSpeed=0;
-	while (heading > 100)
+	while (heading < 90)
   {
    motor(leftwheel) = 25;
    motor(rightwheel) = 0;
