@@ -194,7 +194,7 @@ while (heading > -90)
 
 		motor(rightwheel) = 25;
 		motor(leftwheel) = 25;
-		wait1Msec(backuptime + 1000);
+		wait1Msec(backuptime + 900);
 
   heading =0;
 	rotSpeed=0;
@@ -216,14 +216,14 @@ while (heading > -90)
     heading = heading + rotSpeed * 0.01;
   }
 
-  while(LSvalNorm(LEGOLS) < 45)
+  while(LSvalNorm(LEGOLS) < 40)
 	{
 		motor(leftwheel) = 25; // Go foreward)
 		motor(rightwheel)= 25;
 	}
-	motor(leftwheel) = 0;
-	motor(rightwheel) = 0;
-	wait1Msec(500);//change wait time for compitition
+//	motor(leftwheel) = 0;
+	//motor(rightwheel) = 0;
+//	wait1Msec(10);//change wait time for compitition
 
 	heading = 0;
 	rotSpeed=0;
@@ -246,7 +246,7 @@ while (heading > -90)
 
  motor(leftwheel) = 0;
  motor(rightwheel) = 0;
- wait1Msec(1000); //change value
+ wait1Msec(100); //change value
 
  motor(leftwheel) = -50;
  motor(rightwheel) = -50;
