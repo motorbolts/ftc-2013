@@ -125,7 +125,7 @@ backuptime = time1[T1];
 		motor(leftwheel) = 20;
 		wait1Msec(750);
 	}
-while (heading < 90)
+while (heading < 78)
   	{
    		motor(leftwheel) = 25;
   	  motor(rightwheel) = -25;
@@ -167,13 +167,14 @@ while (heading < 90)
 	  // dump in
 	  wait1Msec(500);
 
-
-
+	 motor(rightwheel) = 25;
+	 motor(leftwheel) = 25;
+	 wait1Msec(backupdump);
 
 	heading =0;
 	rotSpeed = 0;
 
-	while (heading > -75)
+	while (heading > -100)
   {
    motor(leftwheel) = -30;
    motor(rightwheel) = 0;
@@ -226,7 +227,7 @@ while (heading < 90)
 
 	heading = 0;
 	rotSpeed=0;
-	while (heading < 90)
+	while (heading < 80)
   {
    motor(leftwheel) = 25;
    motor(rightwheel) = 0;
