@@ -79,23 +79,24 @@ task main()
 {
   //initializeRobot();
 
-  //waitForStart();   // wait for start of tele-op phase
+  waitForStart();   // wait for start of tele-op phase
 
   while (true)
   {
 
 getJoystickSettings(joystick);
- if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)//deadzone leftwheel
+
+	if(joystick.joy1_y1 < 5 && joystick.joy1_y1 > -5)//deadzone leftwheel
 	{
 		motor(leftwheel) = 0;
 	}
 	if(joystick.joy1_y1 >= 5) //if joy value is positive move leftwheel forward
 	{
-		motor(leftwheel) = (joystick.joy1_y1* joystick.joy1_y1) / 100;
+		motor(leftwheel) = ((joystick.joy1_y1* joystick.joy1_y1) / 100) * 0.75;
 	}
 	if(joystick.joy1_y1 <= -5)//if joy value is negative move wheel backwards
 	{
-		motor(leftwheel) = (joystick.joy1_y1 * joystick.joy1_y1) / -100;
+		motor(leftwheel) = ((joystick.joy1_y1 * joystick.joy1_y1) / -100) * 0.75;
 	}
 
 
@@ -105,11 +106,11 @@ getJoystickSettings(joystick);
 	}
 	if (joystick.joy1_y2 >= 5 )
 	{
-		motor(rightwheel) = (joystick.joy1_y2 * joystick.joy1_y2) / 100;
+		motor(rightwheel) = ((joystick.joy1_y2 * joystick.joy1_y2) / 100) * 0.75;
 	}
 	if (joystick.joy1_y2 <= -5)
 	{
-		motor(rightwheel) = (joystick.joy1_y2 * joystick.joy1_y2) / -100;
+		motor(rightwheel) = ((joystick.joy1_y2 * joystick.joy1_y2) / -100) * 0.75;
 	}
 
 	// Scooch forwards

@@ -90,7 +90,7 @@ int backupdump;
 task main()
 {
   initializeRobot();
-
+	waitForStart();
  LSsetActive(LEGOLS);//set the Light sensor
 
  time1[T1] = 0;
