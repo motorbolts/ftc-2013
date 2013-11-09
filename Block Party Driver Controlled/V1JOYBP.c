@@ -158,12 +158,12 @@ getJoystickSettings(joystick);
 	{
 		motor(shoulder) = joystick.joy2_y2;
 	}
-	if(joy2Btn(3) == 1)
+	if(joy2Btn(1) == 1)
 	{
 		 servo[dump] = 16;
 		 wait1Msec(100);
 	}
-	if(joy2Btn(1) == 1)
+	if(joy2Btn(3) == 1)
 	{
 	  servo[dump] = 149;
 	  // dump out
