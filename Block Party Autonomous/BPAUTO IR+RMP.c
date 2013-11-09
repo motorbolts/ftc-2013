@@ -254,8 +254,14 @@ while (heading > -90)
 
  motor(leftwheel) = 0;
  motor(rightwheel) = 0;
- wait1Msec(2000);
+ wait1Msec(200);
 
+ servo(dump) = 149;//prepare robot for tele-op
+ wait1Msec(500);
+ motor(elbow) = 30;
+ wait1Msec(750);
+ servo(wrist) = 250; //not sure abt value
+ wait1Msec(1000);
 
 
 }
