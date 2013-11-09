@@ -1,11 +1,12 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTServo)
+#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
 #pragma config(Sensor, S2,     SMUX,           sensorI2CCustom)
 #pragma config(Sensor, S3,     HTGYRO,         sensorI2CHiTechnicGyro)
 #pragma config(Sensor, S4,     IR,             sensorHiTechnicIRSeeker1200)
 #pragma config(Motor,  mtr_S1_C1_1,     leftwheel,     tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C1_2,     rightwheel,    tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     elbow,         tmotorTetrix, openLoop)
-#pragma config(Motor,  mtr_S1_C2_2,     shoulder,      tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_1,     shoulder,      tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C2_2,     elbow,         tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_1,     spinner,       tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C3_2,     motorI,        tmotorTetrix, openLoop)
 #pragma config(Servo,  srvo_S1_C4_1,    dump,                 tServoStandard)
@@ -28,7 +29,18 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
+#include "hitechnic-sensormux.h"
+#include "lego-light.h"
+#include "lego-touch.h"
+#include "hitechnic-gyro.h"
 
+
+const tMUXSensor dumptouch = msensor_S2_1;
+//const tMUXSensor walltouch = msensor_S2_2;
+const tMUXSensor LEGOLS = msensor_S2_3;
+
+int backuptime;
+int backupdump;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -47,9 +59,12 @@
 
 void initializeRobot()
 {
-  // Place code here to sinitialize servos to starting positions.
-  // Sensors are automatically configured and setup by ROBOTC. They may need a brief time to stabilize.
-
+ LSsetActive(LEGOLS);//set the Light sensor
+servo(wrist) = 243;
+servo(claw) = 0;
+servo(dump) = 16;
+HTGYROstartCal(HTGYRO);
+wait1Msec(500);
   return;
 }
 
@@ -74,25 +89,14 @@ void initializeRobot()
 // At the end of the autonomous period, the FMS will autonmatically abort (stop) execution of the program.
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "hitechnic-sensormux.h"
-#include "lego-light.h"
-#include "lego-touch.h"
-#include "hitechnic-gyro.h"
 
-
-const tMUXSensor dumptouch = msensor_S2_1;
-//const tMUXSensor walltouch = msensor_S2_2;
-const tMUXSensor LEGOLS = msensor_S2_3;
-
-int backuptime;
-int backupdump;
 
 task main()
 {
   initializeRobot();
 	waitForStart();
  LSsetActive(LEGOLS);//set the Light sensor
-
+ servo(wrist) =
  time1[T1] = 0;
 
    while(SensorValue(IR) != 5 )
@@ -258,10 +262,11 @@ while (heading < 78)
 
 servo(dump) = 149;//prepare robot for tele-op
  wait1Msec(500);
- motor(elbow) = 30;
- wait1Msec(750);
- servo(wrist) = 250; //not sure abt value
- wait1Msec(1000);
-
+ motor(elbow) = -100;
+ wait1Msec(1750);
+ servo(wrist) = 105;
+ wait1Msec(500);
+ servo(dump) = 16;
+ wait1Msec(500);
 
 }
